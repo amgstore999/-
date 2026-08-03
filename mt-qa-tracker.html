@@ -102,6 +102,17 @@
   td.tk .cu-y{color:var(--ok);}
   td.tk .cu-n{color:var(--bad);}
   td.tk .draft{color:var(--ink-3);font-family:var(--mono);text-decoration:line-through;text-decoration-color:var(--bad);}
+  /* Колонка «История». Хранит задачи, которые я лично перепроверил и принял.
+     Из колонки «Задачи» они уходят — там по правилу 06 стандарта остаётся только
+     то, что ещё предстоит. Отсюда не уходят НИКОГДА: это журнал приёмки. */
+  td.hs{text-align:left;font-family:var(--mono);font-size:11.5px;line-height:1.75;}
+  td.hs a{color:var(--ok);text-decoration:none;border-bottom:1px dotted currentColor;}
+  td.hs .none{color:var(--ink-3);opacity:.45;}
+  .rt{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;
+      padding:1px 7px;border-radius:999px;margin-left:6px;white-space:nowrap;cursor:help;font-weight:600;}
+  .rt-ok{background:var(--ok-bg);color:var(--ok);}
+  .rt-part{background:var(--idle-bg);color:var(--idle);}
+  .rt-no{background:var(--bad-bg);color:var(--bad);}
   th.tip{position:relative;cursor:help;}
   th .ic{display:block;font-size:13px;line-height:1.1;}
   th .cap{display:block;font-size:9px;letter-spacing:.08em;margin-top:2px;color:var(--ink-3);}
@@ -169,7 +180,7 @@
     <div><span class="m">01</span><span><b>Шесть колонок на строку.</b> Интерфейс совпадает с прототипом · десктоп · планшет · мобильный · бизнес-логика · автотест в GitHub.</span></div>
     <div><span class="m">02</span><span><b>Крестик обязывает.</b> Где ✗ — в колонке «Задачи» стоят ссылки на ClickUp. Зелёная <b style="color:var(--ok)">✓</b> перед кодом означает, что задача действительно заведена и ссылка открывается. Красный <b style="color:var(--bad)">✗</b> — дефект подтверждён лично, текст задачи готов, но постановка не выполнена: это <b>долг</b>, а не проверенная строка.</span></div>
     <div><span class="m">03</span><span><b>Галочку ставит ретест.</b> Не отчёт разработчика. Ссылки снимаются только вместе с ✓.</span></div>
-    <div><span class="m">04</span><span><b>Фазы по очереди.</b> Блок A идёт строго сверху вниз: следующая фаза не открыта, пока текущая не зелёная целиком.</span></div><div><span class="m">05</span><span><b>Без теста нет галочки.</b> Колонка CI зелёная, только если в репозитории есть автотест именно на этот пункт и он проходит в CI.</span></div><div><span class="m">06</span><span><b>В задачах — только открытое.</b> Задача сделана и ретест прошёл — ссылка снимается, встаёт галочка. Сделана, но вскрылась новая проблема — старая ссылка снимается, на её место встаёт новая. В колонке всегда то, что ещё предстоит.</span></div><div><span class="m">07</span><span><b>Вердикт складывается сам.</b> Колонка Σ не заполняется руками, она вычисляется из шести: <b style="color:var(--ok)">✅</b> все y или na · <b style="color:var(--idle)">⚠️</b> часть принята, часть с отклонением · <b style="color:var(--bad)">❌</b> отклонение в ключевой колонке — дизайн или бизнес-логика · <b>·</b> осталась хоть одна непроверенная колонка, тогда вердикт не выносится вовсе.</span></div>
+    <div><span class="m">04</span><span><b>Фазы по очереди.</b> Блок A идёт строго сверху вниз: следующая фаза не открыта, пока текущая не зелёная целиком.</span></div><div><span class="m">05</span><span><b>Без теста нет галочки.</b> Колонка CI зелёная, только если в репозитории есть автотест именно на этот пункт и он проходит в CI.</span></div><div><span class="m">06</span><span><b>В задачах — только открытое.</b> Задача сделана и ретест прошёл — ссылка снимается, встаёт галочка. Сделана, но вскрылась новая проблема — старая ссылка снимается, на её место встаёт новая. В колонке всегда то, что ещё предстоит.</span></div><div><span class="m">08</span><span><b>Принятое не исчезает — оно переезжает в «Историю».</b> Уточнение правила 06, согласовано с Денисом 02.08.2026. Раньше принятая задача просто пропадала из карты, и через месяц было не восстановить, что именно чинили и когда приняли. Теперь у неё два адреса: колонка <b>«Задачи»</b> держит только незакрытое (правило 06 в силе), колонка <b>«История»</b> хранит принятое <b>навсегда</b> — код задачи, дата ретеста и что именно перепроверено. Переезд возможен единственным способом: я перепроверил исправление лично. <b>Закрытый статус в ClickUp задачу не двигает</b> — правило 03 сильнее.</span></div><div><span class="m">07</span><span><b>Вердикт складывается сам.</b> Колонка Σ не заполняется руками, она вычисляется из шести: <b style="color:var(--ok)">✅</b> все y или na · <b style="color:var(--idle)">⚠️</b> часть принята, часть с отклонением · <b style="color:var(--bad)">❌</b> отклонение в ключевой колонке — дизайн или бизнес-логика · <b>·</b> осталась хоть одна непроверенная колонка, тогда вердикт не выносится вовсе.</span></div>
   </div>
 
   <div class="legend">
@@ -184,6 +195,11 @@
     <span title="Вердикт строки: отклонение в дизайне или бизнес-логике"><i class="v v-bad">❌</i> не работает</span>
     <span title="Осталась непроверенная колонка — вердикт не выносится"><i class="v v-none">·</i> вердикт не вынесен</span>
     <span style="color:var(--ink-3)">в колонке «Задачи»: <b style="color:var(--ok)">✓</b> задача заведена в ClickUp и проверяема по ссылке · <b style="color:var(--bad)">✗</b> текст готов, задача НЕ заведена (долг)</span>
+    <span style="width:100%;height:0"></span>
+    <span title="Ретест пройден: перепроверено лично, дефект не воспроизводится. Задача переезжает в «Историю» и оттуда не удаляется никогда."><i class="rt rt-ok">ретест ✓</i> принято мной</span>
+    <span title="Ретест частичный: основная проблема ушла, но не вся. Задача остаётся в колонке «Задачи» — работа не закончена."><i class="rt rt-part">ретест ≈</i> принято частично</span>
+    <span title="Ретест провален: исправление не работает. Задача остаётся открытой независимо от того, что говорит ClickUp."><i class="rt rt-no">ретест ✗</i> не принято</span>
+    <span style="color:var(--ink-3)"><b>Ретестов пока ноль.</b> 18 задач числятся закрытыми у разработчика, но ни одна мной не перепроверена — поэтому «История» пуста, и это честное состояние, а не недоделка карты</span>
     <span style="width:100%;height:0"></span>
     <span title="Задача заведена и висит в очереди — разработчик её не брал"><i class="st st-intake">в очереди</i></span>
     <span title="Задача остановлена вопросами — работа по ней не идёт"><i class="st st-questions">вопросы</i></span>
@@ -286,6 +302,36 @@ const badge = id => {
   if (!k) return `<span class="st st-unknown" title="Статус в ClickUp не снимался. Задача заведена, но в срез 02.08.2026 не попала — не считать её ни сделанной, ни несделанной.">статус не снят</span>`;
   const s = ST[k];
   return `<span class="st ${s[0]}" title="${s[2]}">${s[1]}</span>`;
+};
+
+// ── журнал ретеста ────────────────────────────────────────────────────────
+// Единственное место, где задача может считаться принятой. Запись сюда ставлю
+// я и только после того, как перепроверил исправление лично: закрытая задача,
+// отчёт разработчика и статус completed основанием не являются (правило 03).
+//
+// Формат: id : [дата, вердикт, что именно перепроверено]
+//   'ok'   — принято: дефект не воспроизводится, задача уходит в «Историю»;
+//   'part' — принято частично: часть проблемы осталась, задача остаётся в работе;
+//   'no'   — не принято: фикс не работает, задачу возвращаем разработчику.
+//
+// Пусто — потому что ретестов ещё не было НИ ОДНОГО. 18 задач числятся
+// закрытыми у разработчика, но ни одну из них я не перепроверял, и пока этого
+// не произошло, ни одна не попадает в «Историю» и ни одна ячейка не зеленеет.
+const RT = {
+ // '86caqwne1': ['05.08.2026','ok','экран входа открывается на русском, локализатор имена не переписывает'],
+};
+const RTV = {
+ ok:  ['rt-ok',  'принято',      'Ретест пройден: я лично перепроверил исправление, дефект не воспроизводится. Задача переведена в «Историю» и оттуда не удаляется.'],
+ part:['rt-part','принято частично','Ретест частичный: основная проблема ушла, но не вся. Задача остаётся в колонке «Задачи» — работа не закончена.'],
+ no:  ['rt-no',  'не принято',   'Ретест провален: исправление не работает или сломало соседнее. Задача остаётся открытой независимо от статуса в ClickUp.']
+};
+// Принятой считается ТОЛЬКО задача с вердиктом 'ok'. Частичный ретест и провал
+// оставляют задачу открытой — иначе «История» превратилась бы в список надежд.
+const accepted = id => !!(RT[id] && RT[id][1] === 'ok');
+const rtBadge = id => {
+  const e = RT[id]; if (!e) return '';
+  const v = RTV[e[1]];
+  return `<span class="rt ${v[0]}" title="${v[2]} · Проверено ${e[0]}: ${e[2]}">ретест ${e[1]==='ok'?'✓':e[1]==='part'?'≈':'✗'} ${e[0].slice(0,5)}</span>`;
 };
 
 // Сводный вердикт строки — складывается сам из шести колонок (стандарт приёмки).
@@ -1014,6 +1060,7 @@ document.getElementById('cards').innerHTML=[
  {k:"Не начато",n:stCnt('intake'),s:"задач лежит в очереди"},
  {k:"В работе",n:stCnt('progress')+stCnt('local')+stCnt('check'),s:"взято разработчиком"},
  {k:"Ждут ретеста",n:stCnt('done'),s:"закрыты, мной не перепроверены"},
+ {k:"Принято мной",n:cuIds.filter(accepted).length,s:"перепроверено лично · в «Истории»"},
  {k:"Строк ждут задач",n:waiting,s:"не позеленеют до закрытия"}
 ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="n">${c.n}</div><div class="s">${c.s}</div></div>`).join('');
 
@@ -1038,21 +1085,24 @@ document.getElementById('cuboard').innerHTML = `
    <b>Закрытая задача сама по себе ничего в карте не зеленит</b> — колонка меняется только после того,
    как я перепроверю строку руками (правило 03).</span></div>
  <div class="scroll"><table>
-  <colgroup><col style="width:1%"><col><col style="width:1%"><col style="width:1%"></colgroup>
+  <colgroup><col style="width:1%"><col><col style="width:1%"><col style="width:1%"><col style="width:1%"></colgroup>
   <thead><tr><th class="l">Задача</th><th class="l">Статус в ClickUp</th>
    <th class="tip" data-tip="Сколько строк карты приёмки ссылаются на эту задачу."><span class="ic">Строк</span><span class="cap">ссылается</span></th>
-   <th class="tip" data-tip="Из них строк, где уже стоит подтверждённое отклонение ✗. Это те строки, которые не станут зелёными, пока задача не закрыта и не перепроверена."><span class="ic">из них</span><span class="cap">с ✗</span></th></tr></thead>
+   <th class="tip" data-tip="Из них строк, где уже стоит подтверждённое отклонение ✗. Это те строки, которые не станут зелёными, пока задача не закрыта и не перепроверена."><span class="ic">из них</span><span class="cap">с ✗</span></th>
+   <th class="l tip" data-tip="Мой ретест. Пусто — я эту задачу не перепроверял, чем бы она ни числилась в ClickUp. Заполнено — перепроверял лично, и здесь видно когда и с каким исходом."><span class="ic">Ретест</span><span class="cap">приёмка</span></th></tr></thead>
   <tbody>${ORDER.filter(k=>stCnt(k)).map(k=>{
     const ids = cuIds.filter(id=>S[id]===k).sort((a,b)=>cuCode[a].localeCompare(cuCode[b]));
-    return `<tr class="sep"><td colspan="4">${HEAD[k]} — ${ids.length}</td></tr>` + ids.map(id=>`<tr>
+    return `<tr class="sep"><td colspan="5">${HEAD[k]} — ${ids.length}</td></tr>` + ids.map(id=>`<tr>
       <td class="co"><a href="${CU(id)}" target="_blank" rel="noopener">${cuCode[id]}</a>${mine(id)?'':' <span style="color:var(--ink-3)">·&nbsp;не&nbsp;моя</span>'}</td>
       <td class="wh">${badge(id)}</td>
       <td class="nu">${cuHolds(id)}</td>
-      <td class="nu">${cuBlocked(id)}</td></tr>`).join('');
+      <td class="nu">${cuBlocked(id)}</td>
+      <td class="wh">${rtBadge(id)||'<span style="color:var(--ink-3);opacity:.45">не перепроверял</span>'}</td></tr>`).join('');
    }).join('')}
-   ${cuIds.some(id=>!S[id])?`<tr class="sep"><td colspan="4">Статус не снимался — ${cuIds.filter(id=>!S[id]).length}</td></tr>`+
+   ${cuIds.some(id=>!S[id])?`<tr class="sep"><td colspan="5">Статус не снимался — ${cuIds.filter(id=>!S[id]).length}</td></tr>`+
      cuIds.filter(id=>!S[id]).map(id=>`<tr><td class="co"><a href="${CU(id)}" target="_blank" rel="noopener">${cuCode[id]}</a></td>
-      <td class="wh">${badge(id)}</td><td class="nu">${cuHolds(id)}</td><td class="nu">${cuBlocked(id)}</td></tr>`).join(''):''}
+      <td class="wh">${badge(id)}</td><td class="nu">${cuHolds(id)}</td><td class="nu">${cuBlocked(id)}</td>
+      <td class="wh">${rtBadge(id)||'<span style="color:var(--ink-3);opacity:.45">не перепроверял</span>'}</td></tr>`).join(''):''}
   </tbody></table></div>`;
 
 document.getElementById('blocks').innerHTML = BLOCKS.map(b=>{
@@ -1066,18 +1116,24 @@ document.getElementById('blocks').innerHTML = BLOCKS.map(b=>{
      <span class="me">${g.rows.filter(r=>r.c.every(c=>c==='y'||c==='na')).length} / ${g.rows.length}</span>
      ${g.gt?`<span class="gt">${g.gt}</span>`:''}</div>
     <div class="scroll"><table>
-     <colgroup><col><col><col class="tick"><col class="tick"><col class="tick"><col class="tick"><col class="tick"><col class="tick"><col class="vd"><col></colgroup>
-     <thead><tr><th class="l">№</th><th class="l">Проверка</th>${COLS.map(c=>`<th class="tip" data-tip="${c[2]}"><span class="ic">${c[0]}</span><span class="cap">${c[1]}</span></th>`).join('')}<th class="tip" data-tip="Сводный вердикт строки. Складывается сам из шести колонок: ✅ все проверены и приняты · ⚠️ реализовано частично · ❌ отклонение в ключевой колонке (дизайн или логика) · · остались непроверенные колонки, вердикт не выносится."><span class="ic">Σ</span><span class="cap">Вердикт</span></th><th class="l tip" data-tip="Задачи в ClickUp, которые нужно закрыть, чтобы строка стала зелёной. Зелёная ✓ перед кодом — задача реально заведена, ссылка открывается и проверяема. Красный ✗ — дефект подтверждён лично, текст задачи готов, но в ClickUp она НЕ заведена (долг, QA-09 · TASK-2).">Задачи · ClickUp</th></tr></thead>
-     <tbody>${g.rows.map(row=>`<tr>
+     <colgroup><col><col><col class="tick"><col class="tick"><col class="tick"><col class="tick"><col class="tick"><col class="tick"><col class="vd"><col><col></colgroup>
+     <thead><tr><th class="l">№</th><th class="l">Проверка</th>${COLS.map(c=>`<th class="tip" data-tip="${c[2]}"><span class="ic">${c[0]}</span><span class="cap">${c[1]}</span></th>`).join('')}<th class="tip" data-tip="Сводный вердикт строки. Складывается сам из шести колонок: ✅ все проверены и приняты · ⚠️ реализовано частично · ❌ отклонение в ключевой колонке (дизайн или логика) · · остались непроверенные колонки, вердикт не выносится."><span class="ic">Σ</span><span class="cap">Вердикт</span></th><th class="l tip" data-tip="Только то, что ещё предстоит закрыть — правило 06 стандарта. Задача уходит отсюда единственным способом: я лично перепроверил исправление и записал ретест. Закрытый статус в ClickUp её отсюда НЕ убирает. Зелёная ✓ перед кодом — задача заведена и ссылка открывается; красный ✗ — дефект подтверждён, но задача не заведена (долг).">Задачи · ClickUp</th><th class="l tip" data-tip="Журнал приёмки: задачи, которые я перепроверил лично и принял. Отсюда не удаляется ничего и никогда — даже когда строка станет полностью зелёной. Здесь видно, что именно было сделано, кем принято и какого числа.">История · принято</th></tr></thead>
+     <tbody>${g.rows.map(row=>{
+       const open = row.tasks.filter(t=>!accepted(t[0]));
+       const hist = row.tasks.filter(t=>accepted(t[0]));
+       return `<tr>
        <td class="id">${row.id}</td>
        <td class="nm">${row.t}${row.note?`<div style="color:var(--ink-3);font-size:12px;margin-top:2px">${row.note}</div>`:''}</td>
        ${row.c.map((c,i)=>`<td>${cell(c,i)}</td>`).join('')}
        ${(v=>`<td class="vd"><span class="v ${v[0]}" title="${v[2]}">${v[1]}</span></td>`)(verdict(row.c))}
-       <td class="tk">${row.tasks.length? row.tasks.map(t=> t[0]
-          ? `<span class="cu cu-y" title="Задача заведена в ClickUp — ссылка открывается, id проверяем">✓</span><a href="${CU(t[0])}" target="_blank" rel="noopener">${t[1]}</a>${badge(t[0])}`
+       <td class="tk">${open.length? open.map(t=> t[0]
+          ? `<span class="cu cu-y" title="Задача заведена в ClickUp — ссылка открывается, id проверяем">✓</span><a href="${CU(t[0])}" target="_blank" rel="noopener">${t[1]}</a>${badge(t[0])}${rtBadge(t[0])}`
           : `<span class="cu cu-n" title="Дефект подтверждён лично, текст задачи готов, но в ClickUp она НЕ заведена — нет доступа. Долг: QA-09 · TASK-2">✗</span><span class="draft">${t[1]}</span>`
         ).join('<br>') : '<span class="none">—</span>'}</td>
-     </tr>`).join('')}</tbody>
+       <td class="hs">${hist.length? hist.map(t=>
+          `<a href="${CU(t[0])}" target="_blank" rel="noopener">${t[1]}</a>${rtBadge(t[0])}`
+        ).join('<br>') : '<span class="none">—</span>'}</td>
+     </tr>`;}).join('')}</tbody>
     </table></div></section>`).join('')}
  </div>`;}).join('');
 
@@ -1086,5 +1142,6 @@ document.getElementById('stamp').innerHTML =
  + "<br><b>▸ ретест Д·01.08</b> — пометка тестировщика со стороны Дениса: этим значком помечены примечания, проверенные лично в сессии 01.08.2026. Всё остальное унаследовано от исходной карты и моим подтверждением НЕ является."
  + "<br>Изменено в сессии 01.08.2026: заведены MT-QA-B-001 (плавающая кнопка чата Tony), MT-QA-B-002 (поле токена доступа и кнопка проверки) и MT-QA-B-003 (кнопка входа через Apple). После этого колонка UI переведена в ✗ у строк B-3, B-11, B-13, B-17, 9.19, 18.16 — правило «крестик без задачи не живёт» соблюдено. Три находки легли на существующие задачи и заведены комментариями, а не дублями: ошибки валидации → P1-006, английский экран входа → P1-003, гайд по токену без поля и пропавшая строка про приватный ключ → MT-QA-B-002. Остальные ячейки не трогались."
  + "<br><b>Срез статусов ClickUp — 02.08.2026.</b> Снят напрямую из ClickUp двумя запросами по списку 901521904732: выборка intake (94 задачи) и выборка questions + in progress + done on local server + check on the server (6 задач). Оба ответа короче страницы в 100 записей, значит полные. Набор статусов взят из available_statuses самого ClickUp, а не по памяти, поэтому задача, не попавшая ни в одну выборку, имеет статус completed по исчерпывающему перебору. Итог: из " + cuIds.length + " задач, на которые ссылается карта, " + stCnt('intake') + " лежат в очереди нетронутыми, " + (stCnt('progress')+stCnt('local')+stCnt('check')) + " взяты в работу, " + stCnt('questions') + " остановлены вопросами, " + stCnt('done') + " закрыты разработчиком и ждут моего ретеста. <b>Все 35 задач, заведённые мной 01.08.2026, — в очереди: ни одна не начата.</b>"
+ + "<br><b>Колонка «История» — уточнение стандарта, 02.08.2026.</b> Правило 06 требовало снимать ссылку на задачу после ретеста, и тогда карта теряла память: через месяц нельзя было восстановить, что чинили и когда приняли. Денис распорядился принятое не удалять. Одна колонка обе задачи не решает, поэтому их две: <b>«Задачи»</b> держит только незакрытое — правило 06 соблюдено дословно, — а <b>«История»</b> хранит принятое навсегда, с датой ретеста и с тем, что именно перепроверено. Переехать из первой во вторую задача может единственным способом: я перепроверил исправление лично. Статус completed в ClickUp её не двигает — правило 03 сильнее статуса. <b>Сейчас «История» пуста, и это правда, а не недоделка:</b> " + stCnt('done') + " задач числятся закрытыми у разработчика, но ретестов не было ни одного."
  + "<br>Зелёных строк 0 и структурно быть не может: колонка CI закрыта по всей карте до появления репозитория платформы (CI-001), колонки 1440/820/390 непроверяемы — инструмент не меняет вьюпорт. Полный журнал пропусков — QA-09.";
 </script>
