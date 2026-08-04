@@ -46,12 +46,6 @@
   h1{font-size:clamp(27px,4.2vw,40px);line-height:1.05;letter-spacing:-.025em;font-weight:700;margin:0;text-wrap:balance;}
   .lede{color:var(--ink-2);max-width:70ch;font-size:15px;}
 
-  .rules{background:var(--sunk);border:1px solid var(--edge);border-radius:11px;padding:15px 18px;display:grid;
-         grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px 26px;font-size:13.5px;color:var(--ink-2);}
-  .rules b{color:var(--ink);}
-  .rules div{display:flex;gap:9px;align-items:flex-start;}
-  .rules .m{font-family:var(--mono);color:var(--accent);font-size:12px;padding-top:2px;}
-
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:11px;}
   .card{background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:14px 15px;display:flex;flex-direction:column;gap:2px;}
   .card .n{font-size:25px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em;}
@@ -102,14 +96,6 @@
   td.tk .cu-y{color:var(--ok);}
   td.tk .cu-n{color:var(--bad);}
   td.tk .draft{color:var(--ink-3);font-family:var(--mono);text-decoration:line-through;text-decoration-color:var(--bad);}
-  /* Плашка ретеста. Показывается у задачи, которую я уже перепроверял, но не принял
-     целиком: 'частично' и 'не принято' оставляют задачу в колонке. Принятая задача
-     из колонки уходит по правилу 06 — вместе с ней зеленеет ячейка строки. */
-  .rt{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;
-      padding:1px 7px;border-radius:999px;margin-left:6px;white-space:nowrap;cursor:help;font-weight:600;}
-  .rt-ok{background:var(--ok-bg);color:var(--ok);}
-  .rt-part{background:var(--idle-bg);color:var(--idle);}
-  .rt-no{background:var(--bad-bg);color:var(--bad);}
   th.tip{position:relative;cursor:help;}
   th .ic{display:block;font-size:13px;line-height:1.1;}
   th .cap{display:block;font-size:9px;letter-spacing:.08em;margin-top:2px;color:var(--ink-3);}
@@ -122,12 +108,6 @@
   th.tip:hover::after,th.tip:focus-visible::after{opacity:1;transform:translateX(-50%) translateY(0);}
   th.tip:last-child:hover::after{transform:translateX(0) translateY(0);}
   @media (prefers-reduced-motion:reduce){ th.tip::after{transition:none;} }
-
-  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px;}
-  .colcard{background:var(--panel);border:1px solid var(--edge);border-radius:9px;padding:11px 13px;display:flex;gap:10px;align-items:flex-start;}
-  .colcard .b{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);white-space:nowrap;padding-top:1px;}
-  .colcard .t{font-size:12.5px;color:var(--ink-2);line-height:1.45;}
-  .colcard .t b{color:var(--ink);display:block;font-size:13px;font-weight:650;margin-bottom:1px;}
 
   .legend{display:flex;flex-wrap:wrap;gap:7px 20px;font-size:12.5px;color:var(--ink-2);align-items:center;}
   .legend span{display:flex;align-items:center;gap:7px;}
@@ -146,21 +126,6 @@
   .st-done{background:var(--ok-bg);color:var(--ok);}
   .st-unknown{background:transparent;color:var(--ink-3);border:1px dashed var(--edge);}
 
-  .board{background:var(--panel);border:1px solid var(--edge);border-radius:12px;overflow:hidden;}
-  .board .bh{padding:13px 17px;background:var(--sunk);border-bottom:1px solid var(--edge);
-             display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;}
-  .board .bh .ti{font-size:15.5px;font-weight:650;letter-spacing:-.012em;}
-  .board .bh .me{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--ink-3);}
-  .board .bh .gt{width:100%;font-size:12.5px;color:var(--ink-2);max-width:88ch;}
-  .board table{min-width:640px;}
-  .board td.co{text-align:left;padding-left:17px;font-family:var(--mono);font-size:12px;white-space:nowrap;}
-  .board td.co a{color:var(--bad);text-decoration:none;border-bottom:1px dotted currentColor;}
-  .board td.wh{text-align:left;font-size:13px;color:var(--ink-2);}
-  .board td.nu{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:12.5px;color:var(--ink-3);}
-  .board tr.sep td{background:var(--sunk);font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
-                   text-transform:uppercase;color:var(--ink-3);text-align:left;padding-left:17px;}
-
-
   .stack{display:flex;flex-direction:column;gap:13px;}
   footer{font-size:12px;color:var(--ink-3);font-family:var(--mono);border-top:1px solid var(--edge);padding-top:15px;}
   @media (max-width:560px){ .wrap{padding:24px 12px 60px;} }
@@ -172,13 +137,6 @@
     <h1>Карта приёмки</h1>
     <p class="lede">Единый документ готовности. Семь блоков: путь клиента, соответствие дизайну v4, админ-панель, функциональные доработки, обязательное для SaaS, цели Tony, кокпит и здоровье платформы. Строка считается закрытой только когда закрыты все шесть колонок проверки, включая автотест в репозитории.</p>
   </header>
-
-  <div class="rules">
-    <div><span class="m">01</span><span><b>Шесть колонок на строку.</b> Интерфейс совпадает с прототипом · десктоп · планшет · мобильный · бизнес-логика · автотест в GitHub.</span></div>
-    <div><span class="m">02</span><span><b>Крестик обязывает.</b> Где ✗ — в колонке «Задачи» стоят ссылки на ClickUp. Зелёная <b style="color:var(--ok)">✓</b> перед кодом означает, что задача действительно заведена и ссылка открывается. Красный <b style="color:var(--bad)">✗</b> — дефект подтверждён лично, текст задачи готов, но постановка не выполнена: это <b>долг</b>, а не проверенная строка. <b>Исключение, узаконено Денисом 03.08.2026:</b> если отклонение чинится не кодом, задача разработчику не заводится — вместо ссылки в примечании названо, к кому оно адресовано. Сегодня таких строк три (E-3.1, E-3.18, E-3.19) и все три — к юристу. Молчащих строк с ✗ в карте нет.</span></div>
-    <div><span class="m">03</span><span><b>Галочку ставит ретест.</b> Не отчёт разработчика. Ссылки снимаются только вместе с ✓.</span></div>
-    <div><span class="m">04</span><span><b>Фазы по очереди.</b> Блок A идёт строго сверху вниз: следующая фаза не открыта, пока текущая не зелёная целиком.</span></div><div><span class="m">05</span><span><b>Без теста нет галочки.</b> Колонка CI зелёная, только если в репозитории есть автотест именно на этот пункт и он проходит в CI. <b>Сегодня она красная во всех 634 строках, и причина одна на всю карту:</b> в доступном приёмке репозитории <b>0 запусков CI</b> — файлы workflow лежат в неслитой ветке, а не в главной, и запускаются по пул-реквесту, которых нет ни одного. Проверено 03.08.2026 напрямую. Задача — <a href="https://app.clickup.com/t/86cazr4ua" target="_blank" rel="noopener">MT-QA-CI-001</a>; в 634 строках она не дублируется намеренно.</span></div><div><span class="m">06</span><span><b>В задачах — код, ссылка и один маркер.</b> Ничего больше: ни названия задачи, ни описания проблемы, ни разбора — всё это живёт в самой задаче ClickUp. Маркер один и самый актуальный: <b>готово</b> (я перепроверил лично) · <b>✓ ретест</b> (разработчик закрыл, пора проверять) · <b>вопросы</b> · <b>в работе</b> · дата моей правки задачи · пусто, если задача просто лежит в очереди.</span></div><div><span class="m">07</span><span><b>Вердикт складывается сам.</b> Колонка Σ не заполняется руками, она вычисляется из шести: <b style="color:var(--ok)">✅</b> все y или na · <b style="color:var(--idle)">⚠️</b> часть принята, часть с отклонением · <b style="color:var(--bad)">❌</b> отклонение в ключевой колонке — дизайн или бизнес-логика · <b>·</b> осталась хоть одна непроверенная колонка, тогда вердикт не выносится вовсе.</span></div>
-  </div>
 
   <div class="legend">
     <span title="Проверено тестировщиком после исправления"><i class="m m-y">✓</i> проверено и принято</span>
@@ -199,11 +157,7 @@
     <span style="color:var(--ink-3)">в колонке «Задачи» — только код-ссылка и <b>один</b> маркер (раздел 8 стандарта). Пусто рядом с кодом = задача лежит в очереди. Дата вместо маркера = я дописал в задачу требования или доказательства в этот день. <b>Ни один маркер не красит ячейку строки</b> — колонка зеленеет только после моего ретеста (правило 03)</span>
   </div>
 
-  <div class="cols" id="cols"></div>
-
   <div class="cards" id="cards"></div>
-
-  <div class="board" id="cuboard"></div>
 
   <div class="stack" id="blocks"></div>
 
@@ -332,16 +286,6 @@ const mark = id => {
   return s[1] ? `<span class="st ${s[0]}" title="${s[2]}">${s[1]}</span>` : '';
 };
 
-// Полное название статуса — только для сводной доски внизу страницы. В строках
-// карты оно не показывается: там колонка должна оставаться узкой (раздел 8).
-const STFULL = {intake:'в очереди', questions:'вопросы', progress:'в работе',
-                local:'сделано локально', check:'на сервере, ждёт проверки', done:'✓ ретест'};
-const badge = id => {
-  const k = S[id];
-  if (!k) return `<span class="st st-unknown" title="Статус в ClickUp не снимался.">статус не снят</span>`;
-  return `<span class="st ${ST[k][0]||'st-intake'}" title="${ST[k][2]||'intake — задача заведена и висит в очереди, разработчик её не брал.'}">${STFULL[k]}</span>`;
-};
-
 // ── журнал ретеста ────────────────────────────────────────────────────────
 // Единственное место, где задача может считаться принятой. Запись сюда ставлю
 // я и только после того, как перепроверил исправление лично: закрытая задача,
@@ -358,20 +302,9 @@ const badge = id => {
 const RT = {
  // '86caqwne1': ['05.08.2026','ok','экран входа открывается на русском, локализатор имена не переписывает'],
 };
-const RTV = {
- ok:  ['rt-ok',  'принято',      'Ретест пройден: я лично перепроверил исправление, дефект не воспроизводится. Задача снята с колонки, ячейка строки позеленела (правила 03 и 06).'],
- part:['rt-part','принято частично','Ретест частичный: основная проблема ушла, но не вся. Задача остаётся в колонке «Задачи» — работа не закончена.'],
- no:  ['rt-no',  'не принято',   'Ретест провален: исправление не работает или сломало соседнее. Задача остаётся открытой независимо от статуса в ClickUp.']
-};
 // Принятой считается ТОЛЬКО задача с вердиктом 'ok'. Частичный ретест и провал
 // оставляют задачу открытой — иначе карта показывала бы надежды вместо фактов.
 const accepted = id => !!(RT[id] && RT[id][1] === 'ok');
-const rtBadge = id => {
-  const e = RT[id]; if (!e) return '';
-  const v = RTV[e[1]];
-  return `<span class="rt ${v[0]}" title="${v[2]} · Проверено ${e[0]}: ${e[2]}">ретест ${e[1]==='ok'?'✓':e[1]==='part'?'≈':'✗'} ${e[0].slice(0,5)}</span>`;
-};
-
 // Сводный вердикт строки — складывается сам из шести колонок (стандарт приёмки).
 // Подтверждённое отклонение сильнее непроверенной колонки: строка, про которую
 // уже точно известно, что она сломана, не должна прятаться за «вердикт не вынесен».
@@ -1102,15 +1035,10 @@ const draftCodes = [...new Set(allRows.flatMap(r=>r.tasks).filter(t=>!t[0]).map(
 const cuIds = [...new Set([...allRows.flatMap(r=>r.tasks).map(t=>t[0]).filter(Boolean), ...Object.keys(S)])];
 const cuCode = {}; Object.entries(T).forEach(([code,id])=>{ cuCode[id]=code; });
 allRows.flatMap(r=>r.tasks).forEach(t=>{ if(t[0]) cuCode[t[0]]=t[1]; });
-const cuHolds = id => allRows.filter(r=>r.tasks.some(t=>t[0]===id)).length;
-const cuBlocked = id => allRows.filter(r=>r.tasks.some(t=>t[0]===id) && r.c.includes('n')).length;
 const stCnt = k => cuIds.filter(id=>S[id]===k).length;
 // Строки, которые ждут хотя бы одну незакрытую задачу: пока она не закрыта
 // и не перепроверена, строка зелёной стать не может в принципе.
 const waiting = allRows.filter(r=>r.tasks.some(t=>t[0] && S[t[0]] && S[t[0]]!=='done')).length;
-
-document.getElementById('cols').innerHTML = COLS.map(c=>
- `<div class="colcard"><span class="b">${c[0]}</span><span class="t"><b>${c[1]}</b>${c[2]}</span></div>`).join('');
 
 document.getElementById('cards').innerHTML=[
  {k:"Строк приёмки",n:allRows.length,s:"по семи блокам"},
@@ -1128,47 +1056,6 @@ document.getElementById('cards').innerHTML=[
  {k:"Принято мной",n:cuIds.filter(accepted).length,s:"перепроверено лично · ячейка зеленеет"},
  {k:"Строк ждут задач",n:waiting,s:"не позеленеют до закрытия"}
 ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="n">${c.n}</div><div class="s">${c.s}</div></div>`).join('');
-
-// ── сводка «Состояние постановок» ────────────────────────────────────────
-// Одна таблица на всю карту: какие задачи заведены, что с ними в ClickUp
-// прямо сейчас и сколько строк приёмки каждая из них держит.
-const ORDER = ['questions','progress','check','local','intake','done'];
-const HEAD = {
- questions:'Остановлены вопросами — работа не идёт',
- progress: 'Взяты в работу',
- check:    'Выкачены на сервер, ждут проверки',
- local:    'Сделаны у разработчика, на прод не выкачены',
- intake:   'Лежат в очереди — разработчик не начинал',
- done:     'Закрыты разработчиком — ждут моего ретеста'
-};
-const mine = id => /^MT-QA-|^P1-|^CI-|^TONY-|^BILL-|^COLLAB-/.test(cuCode[id]||'');
-document.getElementById('cuboard').innerHTML = `
- <div class="bh"><span class="ti">Состояние постановок в ClickUp</span>
-  <span class="me">${cuIds.length} задач · срез 03.08.2026</span>
-  <span class="gt">Срез снят напрямую из ClickUp, не из памяти и не из карты. Порядок сверху вниз — по тому,
-   насколько задача близка к моему ретесту: сверху то, что стоит, снизу то, что разработчик уже закрыл.
-   <b>Закрытая задача сама по себе ничего в карте не зеленит</b> — колонка меняется только после того,
-   как я перепроверю строку руками (правило 03).</span></div>
- <div class="scroll"><table>
-  <colgroup><col style="width:1%"><col><col style="width:1%"><col style="width:1%"><col style="width:1%"></colgroup>
-  <thead><tr><th class="l">Задача</th><th class="l">Статус в ClickUp</th>
-   <th class="tip" data-tip="Сколько строк карты приёмки ссылаются на эту задачу."><span class="ic">Строк</span><span class="cap">ссылается</span></th>
-   <th class="tip" data-tip="Из них строк, где уже стоит подтверждённое отклонение ✗. Это те строки, которые не станут зелёными, пока задача не закрыта и не перепроверена."><span class="ic">из них</span><span class="cap">с ✗</span></th>
-   <th class="l tip" data-tip="Мой ретест. Пусто — я эту задачу не перепроверял, чем бы она ни числилась в ClickUp. Заполнено — перепроверял лично, и здесь видно когда и с каким исходом."><span class="ic">Ретест</span><span class="cap">приёмка</span></th></tr></thead>
-  <tbody>${ORDER.filter(k=>stCnt(k)).map(k=>{
-    const ids = cuIds.filter(id=>S[id]===k).sort((a,b)=>cuCode[a].localeCompare(cuCode[b]));
-    return `<tr class="sep"><td colspan="5">${HEAD[k]} — ${ids.length}</td></tr>` + ids.map(id=>`<tr>
-      <td class="co"><a href="${CU(id)}" target="_blank" rel="noopener">${cuCode[id]}</a>${mine(id)?'':' <span style="color:var(--ink-3)">·&nbsp;не&nbsp;моя</span>'}</td>
-      <td class="wh">${badge(id)}</td>
-      <td class="nu">${cuHolds(id)}</td>
-      <td class="nu">${cuBlocked(id)}</td>
-      <td class="wh">${rtBadge(id)||'<span style="color:var(--ink-3);opacity:.45">не перепроверял</span>'}</td></tr>`).join('');
-   }).join('')}
-   ${cuIds.some(id=>!S[id])?`<tr class="sep"><td colspan="5">Статус не снимался — ${cuIds.filter(id=>!S[id]).length}</td></tr>`+
-     cuIds.filter(id=>!S[id]).map(id=>`<tr><td class="co"><a href="${CU(id)}" target="_blank" rel="noopener">${cuCode[id]}</a></td>
-      <td class="wh">${badge(id)}</td><td class="nu">${cuHolds(id)}</td><td class="nu">${cuBlocked(id)}</td>
-      <td class="wh">${rtBadge(id)||'<span style="color:var(--ink-3);opacity:.45">не перепроверял</span>'}</td></tr>`).join(''):''}
-  </tbody></table></div>`;
 
 document.getElementById('blocks').innerHTML = BLOCKS.map(b=>{
  const rows=b.groups.flatMap(g=>g.rows);
