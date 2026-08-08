@@ -122,6 +122,10 @@
   .st-questions{background:var(--bad-bg);color:var(--bad);}
   .st-blockceo{background:var(--bad-bg);color:var(--bad);}
   .st-progress{background:var(--ok-bg);color:var(--ok);}
+  /* Возврат по правилу #21. Красный, а не зелёный «в работе»: разработчик её уже
+     держал в руках и она вернулась. Обводка отличает возврат от вопросов и блока CEO,
+     которые тоже красные, но ждут ответа, а не работы. */
+  .st-rework{background:var(--bad-bg);color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad);}
   .st-local{background:var(--ok-bg);color:var(--ok);}
   .st-check{background:var(--ok-bg);color:var(--ok);}
   .st-done{background:var(--ok-bg);color:var(--ok);}
@@ -411,6 +415,13 @@ const ST = {
  // что адресат другой: «вопросы» ждут ответа мне, «блок CEO» ждёт решения Дениса.
  blockceo: ['st-blockceo', 'блок CEO',         'block ceo — разработчик считает, что задача упёрлась в решение владельца продукта. Работа по ней не идёт, пока Денис не ответит.'],
  progress: ['st-progress', 'в работе',         'in progress — разработчик взял задачу в работу.'],
+ // Правило #21 регламента, введено Денисом 07.08.2026. Отдельный статус от intake
+ // намеренно: intake значит «разработчик не видел», rework — «видел, сделал, вернулось».
+ // Сюда попадает задача, чью галочку опровергла ручная проверка, — в любой из шести
+ // колонок, а не только в ⚙: область расширена Денисом в тот же день. Счёт заходов
+ // на один дефект виден только если возврат не смешивать с новой работой.
+ // Если за ячейкой задачи никогда не стояло, возврат не применяется: это intake.
+ rework:   ['st-rework',   'возврат',          'rework — строка была принята, ручная проверка опровергла. Задача переписана новым доказательством и возвращена разработчику. Это вторая попытка по той же причине, а не новая задача.'],
  local:    ['st-local',    'в работе',         'done on local server — сделано у разработчика, на боевой сервер не выкачено.'],
  check:    ['st-check',    'в работе',         'check on the server — выкачено на сервер, ждёт моей проверки.'],
  // Зелёная галочка = сигнал Денису: разработчик закрыл, задачу пора перепроверять.
@@ -659,7 +670,75 @@ const S = {
  "86cb1kj4n":"questions", // CI-005 антиабьюз регистрации без тестов
  "86cb1kjv5":"questions", // CI-006 экран подтверждения почты без e2e
  "86cb1kx2a":"questions", // CI-007 тесты писем не видят боевое содержимое
- "86cb0j800":"questions"  // REL-001 бой собран не из main
+ "86cb0j800":"questions", // REL-001 бой собран не из main
+
+ // ── Пересъём статусов, принят 08.08.2026 ──────────────────────────────────
+ // Источник: origin/main репозитория MarketTruth/Map-of-project, коммит ac4650d.
+ // Это снимок ClickUp, снятый разработчиком, а НЕ мной: собственный вызов
+ // clickup_filter_tasks 08.08 отвечает «Rate limit exceeded, wait 110 minutes».
+ // Переношу только статусы задач — это факт из трекера. Шесть колонок приёмки
+ // из его редакции НЕ переносятся: 32 строки он перекрасил в зелёное сам,
+ // без моего ретеста, и по правилу 03 эти значения недействительны.
+ // Ключи повторены намеренно: в JS побеждает последний, прежняя запись видна.
+
+ // Изменились (27):
+  "86cakbz5n":"done",  // —: было intake
+  "86caz5nt7":"check",  // —: было intake
+  "86cb1n6n1":"check",  // MT-QA-P1D-001: было intake
+  "86cb1n6v4":"check",  // MT-QA-P1D-002: было intake
+  "86cb1n71p":"check",  // MT-QA-P1D-003: было intake
+  "86cb1nncb":"check",  // MT-QA-P1-008: было progress
+  "86cb1nnfg":"check",  // MT-QA-P1-009: было progress
+  "86cb1p727":"check",  // MT-QA-P3-001: было intake
+  "86cb1p753":"check",  // MT-QA-P2-001: было intake
+  "86cb1pc7d":"check",  // —: было intake
+  "86cb1pc9h":"blockceo",  // —: было intake
+  "86cb1pcc2":"check",  // —: было intake
+  "86cb1pfgp":"done",  // MT-QA-P5-001: было intake
+  "86cb1pfhu":"done",  // MT-QA-P5-002: было intake
+  "86cb1pfjw":"done",  // MT-QA-P5-003: было intake
+  "86cb1pfte":"done",  // MT-QA-P6-001: было intake
+  "86cb1pg27":"done",  // MT-QA-UI-002: было intake
+  "86cb1pr0y":"done",  // MT-QA-P15-001: было intake
+  "86cb1pr29":"done",  // MT-QA-P16-001: было intake
+
+ // Новые ID, которых в моей карте не было (19):
+  "86cb1px5y":"intake", // MT-QA-E-008
+  "86cb1px68":"intake", // MT-QA-E-009
+  "86cb1px6n":"intake", // MT-QA-E-010
+  "86cb1px6w":"intake", // MT-QA-E-011
+  "86cb1px7g":"intake", // MT-QA-E-012
+  "86cb1px89":"intake", // MT-QA-E-013
+  "86cb1px8w":"intake", // MT-QA-E-014
+  "86cb1px96":"intake", // MT-QA-E-015
+  "86cb1px9m":"intake", // MT-QA-E-016
+  "86cb1pxa7":"intake", // MT-QA-E-017
+  "86cb1pxae":"intake", // MT-QA-E-018
+  "86cb1pxan":"intake", // MT-QA-E-019
+  "86cb1pxay":"intake", // MT-QA-E-020
+  "86cb1pxb4":"intake", // MT-QA-E-021
+  "86cb1pxbe":"intake", // MT-QA-E-022
+  "86cb1pxce":"intake", // MT-QA-F-001
+  "86cb1pxdc":"intake", // MT-QA-F-002
+  "86cb1pxe3":"intake", // MT-QA-F-003
+  "86cb22x3p":"intake", // MT-QA-P7-005
+
+ // ── СПОРНЫЕ ВОСЕМЬ · применены, но не подтверждены мной ───────────────────
+ // Здесь его снимок противоречит моему, и оба вторичны: мой прочитан поштучно
+ // через get_task 05.08, его снят скриптом 07.08. Пять задач фазы 1 у меня
+ // стояли completed, у него — check on the server: это откат назад, а не
+ // движение вперёд. Три ID он отдаёт как resource not found, у меня они были
+ // закрыты. Беру его значения как более свежие, но помечаю: перечитать
+ // поштучно, как только откроется лимит ClickUp. До перечтения ни одна из
+ // восьми не основание ни для галочки, ни для крестика.
+  "86cazr3r8":"check",  // P1-001: было done
+  "86cazr3rw":"check",  // P1-004: было done
+  "86cazr3tr":"check",  // P1-006: было done
+  "86cazr3uk":"check",  // P1-002: было done
+  "86cazr3vk":"check",  // P1-007: было done
+  "86cazr5tn":"missing",  // COLLAB-001: было done
+  "86cazrgh9":"missing",  // MT-QA-B-001: было done
+  "86cazrghc":"missing",  // MT-QA-B-002: было done
 };
 
 // ── одно обозначение на задачу ────────────────────────────────────────────
@@ -735,7 +814,52 @@ const COLS = [
  ["CI","Тест","Автотест именно на этот пункт лежит в репозитории на GitHub и проходит в CI."]
 ];
 const VAL = {y:"проверено и принято", n:"отклонение, задача поставлена", q:"ещё не проверялось", na:"неприменимо к этой строке"};
-const cell = (v,i) => `<span class="m ${M[v][0]}" title="${COLS[i][1]}: ${VAL[v]}">${M[v][1]}</span>`;
+const marker = (v,label) => `<span class="m ${M[v][0]}" title="${label}: ${VAL[v]}">${M[v][1]}</span>`;
+const cell = (v,i) => marker(v,COLS[i][1]);
+
+// ── Седьмая колонка QA · оформление принято по редакции Александра 08.08.2026 ──
+// Решение Дениса: таблица приводится к виду его index.html. Колонка сводного
+// вердикта Σ снята с показа — функция verdict() жива и продолжает считать
+// плашки наверху страницы, но в таблице её место занимает решение владельца.
+//
+// QA не наследуется из шести технических колонок и не выводится из них
+// автоматически. Это отдельная подпись CEO: строку принял он сам. По умолчанию
+// все строки «ещё не проверялось». Чтобы принять строку вручную, достаточно
+// дописать её ID: "1.1":"y" — принято, "1.1":"n" — не принято.
+const QA_COL = ["QA","Статус","Статус QA устанавливает CEO вручную: ✓ — проверено; ✗ — не принято; · — ещё не проверялось."];
+const QA = {};
+const qaState = row => ['y','n'].includes(QA[row.id]) ? QA[row.id] : 'q';
+const qaCell = row => marker(qaState(row),QA_COL[1]);
+const displayCols = [...COLS,QA_COL];
+
+// Колонка «Задачи» по редакции Александра: одна ссылка вида «КОД · статус»,
+// человекочитаемое имя статуса прямо в тексте, а не отдельной плашкой при
+// наведении. Мой маркер сохранён и встаёт рядом только там, где несёт то,
+// чего в самом статусе нет: личный ретест и дата дописанного доказательства.
+const STATUS_TEXT = {
+  intake:'intake', questions:'questions', blockceo:'block ceo',
+  progress:'in progress', rework:'rework', local:'done on local server',
+  check:'check on the server', done:'completed', missing:'resource not found'
+};
+const esc = value => String(value).replace(/[&<>"']/g, ch=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const renderTask = task => {
+  const [id,code] = task;
+  if(!id) return `<span class="cu cu-n" title="Дефект подтверждён лично, текст задачи готов, но в ClickUp она НЕ заведена — долг постановки.">✗</span><span class="draft">${esc(code)} · не заведено</span>`;
+  const state = S[id];
+  const status = state ? (STATUS_TEXT[state] || state) : 'статус не снят';
+  const title = state === 'missing'
+    ? 'ClickUp: Resource not found. Исторический ID сохранён, задачи по нему нет.'
+    : state ? 'ClickUp: ' + status
+            : 'Статус в ClickUp не снимался — не считать задачу ни сделанной, ни несделанной.';
+  const retest = accepted(id)
+    ? '<span class="st st-done" title="Ретест пройден мной лично: исправление проверено, строка принята (правило 03).">готово</span>' : '';
+  const upd = (state === 'intake' && UPD[id])
+    ? `<span class="st st-unknown" title="Задача лежит в очереди, но я дописал в неё требования или доказательства в эту дату (раздел 7.2 стандарта).">${UPD[id]}</span>` : '';
+  return `<a href="${CU(id)}" target="_blank" rel="noopener" title="${esc(title)}">${esc(code)} · ${esc(status)}</a>${retest}${upd}`;
+};
+const renderCells = row => [...row.c.map((v,i)=>cell(v,i)), qaCell(row)]
+  .map(v=>`<td>${v}</td>`).join('');
 
 // r(id, название, [ui,desktop,tablet,mobile,логика], [задачи ClickUp], примечание)
 const r = (id,t,c,tasks,note)=>({id,t,c,tasks:tasks||[],note:note||''});
@@ -1598,11 +1722,19 @@ document.getElementById('cards').innerHTML=[
  {k:"Задач заведено",n:cuIds.length,s:`ссылок из карты в ClickUp`},
  {k:"Не начато",n:stCnt('intake'),s:"задач лежит в очереди"},
  {k:"В работе",n:stCnt('progress')+stCnt('local')+stCnt('check'),s:"взято разработчиком"},
+ // Правило #21: возвраты считаются отдельно и в «В работе» не сливаются. Смысл счёта
+ // в том, чтобы было видно вторую и третью попытку по одной причине — если число
+ // растёт, дефект лечат не там, где он живёт.
+ {k:"Возвращено",n:stCnt('rework'),s:"принятое опровергнуто ручной проверкой"},
  {k:"Ждут ретеста",n:stCnt('done'),s:"закрыты, мной не перепроверены"},
  {k:"Принято мной",n:cuIds.filter(accepted).length,s:"перепроверено лично · ячейка зеленеет"},
  {k:"Строк ждут задач",n:waiting,s:"не позеленеют до закрытия"}
 ].map(c=>`<div class="card"><div class="k">${c.k}</div><div class="n">${c.n}</div><div class="s">${c.s}</div></div>`).join('');
 
+// Решение Дениса 08.08.2026: под фазами не выводится ничего, кроме счётчика —
+// как в редакции Александра. Тексты групп (g.gt) и примечания строк (row.note)
+// остаются в файле как входные данные и доказательная база, но на страницу не
+// попадают: карта показывает статус, подробности живут в задаче ClickUp.
 document.getElementById('blocks').innerHTML = BLOCKS.map(b=>{
  const rows=b.groups.flatMap(g=>g.rows);
  const gr=rows.filter(r=>r.c.every(c=>c==='y'||c==='na')).length;
@@ -1611,31 +1743,21 @@ document.getElementById('blocks').innerHTML = BLOCKS.map(b=>{
    <span class="cnt">${gr} / ${rows.length}</span><p>${b.sub}</p></div>
   ${b.groups.map(g=>`<section class="grp">
     <div class="gh"><span class="no">${g.no}</span><span class="ti">${g.ti}</span>
-     <span class="me">${g.rows.filter(r=>r.c.every(c=>c==='y'||c==='na')).length} / ${g.rows.length}</span>
-     ${g.gt?`<span class="gt">${g.gt}</span>`:''}</div>
+     <span class="me">${g.rows.filter(r=>r.c.every(c=>c==='y'||c==='na')).length} / ${g.rows.length}</span></div>
     <div class="scroll"><table>
-     <colgroup><col><col><col class="tick"><col class="tick"><col class="tick"><col class="tick"><col class="tick"><col class="tick"><col class="vd"><col></colgroup>
-     <thead><tr><th class="l">№</th><th class="l">Проверка</th>${COLS.map(c=>`<th class="tip" data-tip="${c[2]}"><span class="ic">${c[0]}</span><span class="cap">${c[1]}</span></th>`).join('')}<th class="tip" data-tip="Сводный вердикт строки. Складывается сам из шести колонок: ✅ все проверены и приняты · ⚠️ реализовано частично · ❌ отклонение в ключевой колонке (дизайн или логика) · · остались непроверенные колонки, вердикт не выносится."><span class="ic">Σ</span><span class="cap">Вердикт</span></th><th class="l tip" data-tip="Код задачи, ссылка на неё и один маркер — больше в колонке ничего нет, всё остальное живёт внутри самой задачи (правило 06). Маркер показывает самое актуальное: «готово» — я перепроверил исправление лично · «✓ ретест» — разработчик закрыл задачу, её пора проверять · «вопросы» — работа остановлена · «в работе» — взята · дата — в этот день я дописал в задачу требования или доказательства · пусто — задача просто лежит в очереди. Код с красным ✗ и без ссылки — дефект подтверждён, но задача ещё не заведена. Код CI-000 — зонтик над всей колонкой CI: он подставляется автоматически каждой строке, где автотеста нет и своей CI-задачи у строки нет. Это одна задача на 594 строки, потому что причина одна на все: два воркфлоу висят на списке из 52 путей, и 1304 файла из 1354 не запускают при изменении ни одного теста. Зонтик закрывает ровно колонку CI и ни одну другую — в расчёте долга постановки он за задачу не считается.">Задачи · ClickUp</th></tr></thead>
-     <tbody>${g.rows.map(row=>{
-       // Раздел 8 стандарта: код-ссылка + один короткий маркер, больше ничего.
-       // Принятая мной задача из колонки не исчезает — она остаётся с маркером
-       // «готово», чтобы было видно, чем именно закрыта строка (раздел 7.3).
-       const open = row.tasks;
-       return `<tr>
+     <colgroup><col><col><col class="tick"><col class="tick"><col class="tick"><col class="tick"><col class="tick"><col class="tick"><col class="tick"><col></colgroup>
+     <thead><tr><th class="l">№</th><th class="l">Проверка</th>${displayCols.map(c=>`<th class="tip" data-tip="${c[2]}"><span class="ic">${c[0]}</span><span class="cap">${c[1]}</span></th>`).join('')}<th class="l tip" data-tip="Задачи в ClickUp, которые нужно закрыть, чтобы строка стала зелёной. В ячейке — код задачи, ссылка на неё и её статус в ClickUp: intake, questions, block ceo, in progress, rework, done on local server, check on the server, completed. Рядом со ссылкой может стоять «готово» — это значит, что я перепроверил исправление лично, и только это делает строку принятой (правило 03). Дата рядом со статусом intake — день, когда я дописал в задачу требования или доказательства. Код с красным ✗ — дефект подтверждён, задача ещё не заведена. Код CI-000 — зонтик над всей колонкой CI: он подставляется автоматически каждой строке, где автотеста нет и своей CI-задачи у строки нет, потому что причина одна на все. Ссылка снимается только вместе с галочкой (правило 06).">Задачи · ClickUp</th></tr></thead>
+     <tbody>${g.rows.map(row=>`<tr>
        <td class="id">${row.id}</td>
-       <td class="nm">${row.t}${row.note?`<div style="color:var(--ink-3);font-size:12px;margin-top:2px">${row.note}</div>`:''}</td>
-       ${row.c.map((c,i)=>`<td>${cell(c,i)}</td>`).join('')}
-       ${(v=>`<td class="vd"><span class="v ${v[0]}" title="${v[2]}">${v[1]}</span></td>`)(verdict(row.c))}
-       <td class="tk">${open.length? open.map(t=> t[0]
-          ? `<a href="${CU(t[0])}" target="_blank" rel="noopener">${t[1]}</a>${mark(t[0])}`
-          : `<span class="cu cu-n" title="Дефект подтверждён лично, текст задачи готов, но в ClickUp она НЕ заведена — нет доступа. Долг: QA-09 · TASK-2">✗</span><span class="draft">${t[1]}</span>`
-        ).join('<br>') : '<span class="none">—</span>'}</td>
-     </tr>`;}).join('')}</tbody>
+       <td class="nm">${row.t}</td>
+       ${renderCells(row)}
+       <td class="tk">${row.tasks.length? row.tasks.map(renderTask).join('<br>') : '<span class="none">—</span>'}</td>
+     </tr>`).join('')}</tbody>
     </table></div></section>`).join('')}
  </div>`;}).join('');
 
 // Подвал по мерке эталона: одна строка о том, что и с чем сверялось. Разбор,
 // методы съёма статусов и обоснования лежат в вольте (QA-09…QA-18), не здесь.
 document.getElementById('stamp').textContent =
- "Обновлено 05.08.2026 · markettruth.ai · прод отдаёт markettruth-cabinet-v4.html (1,49 МБ, 432 контрола) · эталон сверки назначен 05.08: markettruth-cabinet-v4-source (2).html · прод несёт в комментарии его SHA-256 07b75714… и построчно совпадает с ним на 93,27 % (8245 из 8840 строк) · экран авторизации в эталоне есть — прежняя запись «его нет» опровергнута мной 05.08, я грепал по-английски файл, написанный по-русски";
+ "Обновлено 08.08.2026 · оформление таблицы приведено к редакции Александра решением Дениса: седьмая колонка QA вместо сводного вердикта, статус ClickUp читается прямо в ячейке задачи · статусы 121 задачи перенесены из origin/main коммит ac4650d, это снимок разработчика, а не мой: мой вызов ClickUp упирается в лимит и будет повторён · шесть колонок приёмки остались моими — 32 строки, перекрашенные разработчиком в коммитах 26bf21b, 98a0e5e и ac4650d, в эту карту не перенесены и ждут моего ретеста (правило 03) · эталон дизайна прежний: markettruth-cabinet-v4-source (2).html, SHA-256 07b75714…";
 </script>
